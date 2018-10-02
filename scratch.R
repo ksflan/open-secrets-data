@@ -5,10 +5,10 @@ source("utils.R")
 data_file <- read_lines("data/CampaignFin18/indivs18.txt",
                         skip = 10670000)
 
-full_data <- read.table("data/CampaignFin18/indivs18.txt",
+individual_data <- fread("data/CampaignFin18/indivs18.txt",
                         sep = ",",
                         quote = "|",
-                        stringsAsFactors = FALSE)
+                        skip = 10000000)
 
 chunks <- 1:(length(data_file)/10000)
 
@@ -51,9 +51,6 @@ column_names <- c("cycle", "fec_trans_id", "contributor_id", "contributor_name",
 
 colnames(full_data) <- column_names
 
-final_data$date <- mdy(final_data$date)
-final_data$amount <- as.nume
-
 RPostgreSQL::dbWriteTable()
 
 
@@ -61,6 +58,11 @@ RPostgreSQL::dbWriteTable()
 
 
 
+full_data <- fread("data/CampaignFin18/cands18.txt",
+                        sep = ",",
+                        quote = "|",
+                        stringsAsFactors = FALSE)
+candidate_column_names <- c("")
 
 
 
